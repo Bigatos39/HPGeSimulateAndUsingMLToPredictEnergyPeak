@@ -1,6 +1,3 @@
-# Creating the README.md content based on the provided description
-
-readme_content = """
 # Optimization of HPGe Detectors Using Geant4 Simulation
 
 This project focuses on the optimization of High Purity Germanium (HPGe) detectors for detecting and analyzing gamma radiation with high accuracy, a critical tool in the field of nuclear physics.

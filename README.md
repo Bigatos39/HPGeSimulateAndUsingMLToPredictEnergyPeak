@@ -20,11 +20,3 @@ By using the Geant4 program for optimization, this project demonstrates signific
 
 For further details, contact:
 - **Email**: 20230059@student.hcmus.edu.vn
-"""
-
-# Saving the content to a README.md file
-file_path = "/mnt/data/README.md"
-with open(file_path, "w") as f:
-    f.write(readme_content)
-
-file_path

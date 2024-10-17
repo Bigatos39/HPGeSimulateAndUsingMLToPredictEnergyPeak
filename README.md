@@ -30,7 +30,16 @@ For further details, contact:
     cd HPGeSimulate
     ```
 3. **Configure the simulation environment**: Update the configuration files according to your specific detector requirements.
-4. **Run the simulation**:
+4. **Run the simulation with the viewer**:
     ```bash
-    ./run_simulation.sh
+    mkdir build
+    cd build
+    cmake ..
+    make
+    ./sim 
+    ```
+5. **Run the simulation**:
+    ```bash
+    cd build
+    ./sim simulation.mac
     ```

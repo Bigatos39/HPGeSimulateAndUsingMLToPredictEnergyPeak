@@ -24,12 +24,12 @@ For further details, contact:
 ## How to Run
 
 1. **Install Geant4**: Follow the official [Geant4 installation guide](https://geant4.web.cern.ch/support/download) to install the required simulation environment.
-2. **Clone this repository**:
+2. **Configure the simulation environment**: Update the configuration files according to your specific detector requirements.
+3. **Clone this repository**:
     ```bash
     git clone git@github.com:Bigatos39/HPGeSimulate.git
     cd HPGeSimulate
     ```
-3. **Configure the simulation environment**: Update the configuration files according to your specific detector requirements.
 4. **Run the simulation with the viewer**:
     ```bash
     mkdir build

@@ -37,3 +37,8 @@ For further details, contact:
     cd build
     ./sim simulation.mac
     ```
+6. **See the energy distribution**:
+   ```bash
+   g++ -o energyDistribution energyDistribution.cc
+   ./energyDistribution
+   ``` 

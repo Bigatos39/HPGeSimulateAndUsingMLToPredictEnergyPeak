@@ -20,3 +20,17 @@ By using the Geant4 program for optimization, this project demonstrates signific
 
 For further details, contact:
 - **Email**: 20230059@student.hcmus.edu.vn
+
+## How to Run
+
+1. **Install Geant4**: Follow the official [Geant4 installation guide](https://geant4.web.cern.ch/support/download) to install the required simulation environment.
+2. **Clone this repository**:
+    ```bash
+    git clone <repository-url>
+    cd <repository-directory>
+    ```
+3. **Configure the simulation environment**: Update the configuration files according to your specific detector requirements.
+4. **Run the simulation**:
+    ```bash
+    ./run_simulation.sh
+    ```

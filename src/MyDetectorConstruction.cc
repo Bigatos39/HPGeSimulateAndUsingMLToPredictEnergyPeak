@@ -82,7 +82,7 @@ G4VPhysicalVolume *MyDetectorConstruction::DefineVolumes() {
   G4UnionSolid *crystalGeTotal = new G4UnionSolid(
       "FinalShape", cylinder_GeCrystal, cylinder_inTorus_GeCrystal, nullptr,
       G4ThreeVector(0., 0., posInnerCylinderZ));
-  // 3 1 / 4torus
+  // 3 (1/4) torus
   G4Torus *torus_GeCrystal =
       new G4Torus("Torus", 0, radius_torus_GeCrystal, radius_GeCrystal - 8,
                   startPhi, deltaPhi);

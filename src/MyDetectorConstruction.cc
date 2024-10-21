@@ -123,8 +123,8 @@ G4VPhysicalVolume *MyDetectorConstruction::DefineVolumes() {
       "TotalGeCrystal", total_withHole_GeCrystal,
       total_torusOnCylinderGeCrystal, nullptr, position_torusOnTop);
   logic_GeCrystal = new G4LogicalVolume(total_GeCrystal, Ge, "logicGeCrystal");
-  // new G4PVPlacement(nullptr, G4ThreeVector(0., 0., 0.), logic_GeCrystal,
-  //                   "GeCrystal", logicWorld, false, 0, true);
+  new G4PVPlacement(nullptr, G4ThreeVector(0., 0., 0.), logic_GeCrystal,
+                    "GeCrystal", logicWorld, false, 0, true);
   //  5 set color
   G4VisAttributes *visGeCrystal = new G4VisAttributes(G4Colour(0.0, 0.0, 1.0));
   visGeCrystal->SetVisibility(true);
@@ -167,8 +167,8 @@ G4VPhysicalVolume *MyDetectorConstruction::DefineVolumes() {
 
   logic_LiDeadLayer =
       new G4LogicalVolume(cylinder_LiDeadLayer, GeLi, "logicLiDeadLayer");
-  // new G4PVPlacement(nullptr, G4ThreeVector(0., 0., 0.), logic_LiDeadLayer,
-  //                   "LiDeadLayer", logicWorld, false, 0, true);
+  new G4PVPlacement(nullptr, G4ThreeVector(0., 0., 0.), logic_LiDeadLayer,
+                    "LiDeadLayer", logicWorld, false, 0, true);
   G4VisAttributes *visLiDeadLayer =
       new G4VisAttributes(G4Colour(0.0, 1.0, 0.0));
   visLiDeadLayer->SetVisibility(true);
@@ -186,8 +186,8 @@ G4VPhysicalVolume *MyDetectorConstruction::DefineVolumes() {
   G4ThreeVector posAlWindow(0., 0.,
                             (length_GeCrystal + thickness_alWindow + 8.7) / 2);
   logic_AlWindow = new G4LogicalVolume(cylinder_alWindow, Al, "logicAlWindow");
-  // new G4PVPlacement(nullptr, posAlWindow, logic_AlWindow, "AlWindow",
-  //                   logicWorld, false, 0, true);
+  new G4PVPlacement(nullptr, posAlWindow, logic_AlWindow, "AlWindow",
+                    logicWorld, false, 0, true);
   G4VisAttributes *visAlWindow = new G4VisAttributes(G4Colour(0.7, 0.7, 0.7));
   visAlWindow->SetVisibility(true);
   logic_AlWindow->SetVisAttributes(visAlWindow);
@@ -202,9 +202,8 @@ G4VPhysicalVolume *MyDetectorConstruction::DefineVolumes() {
                                    thickness_mylarWindow);
   logic_mylarWindow =
       new G4LogicalVolume(cylinder_mylarWindow, Mylar, "logicMylarWindow");
-  // new G4PVPlacement(nullptr, posMylarWindow, logic_mylarWindow,
-  // "MylarWindow",
-  //                   logicWorld, false, 0, true);
+  new G4PVPlacement(nullptr, posMylarWindow, logic_mylarWindow, "MylarWindow",
+                    logicWorld, false, 0, true);
   G4VisAttributes *visMylarWindow = new G4VisAttributes(G4Colour(0, 1, 1));
   visMylarWindow->SetVisibility(true);
   logic_mylarWindow->SetVisAttributes(visMylarWindow);
@@ -246,8 +245,8 @@ G4VPhysicalVolume *MyDetectorConstruction::DefineVolumes() {
       new G4LogicalVolume(total_alHousingWithSubtraction, Al, "AlHousing");
   G4ThreeVector posAlHousing(0., 0.,
                              -(105 * mm - 3 * mm - length_GeCrystal - 8.7) / 2);
-  // new G4PVPlacement(nullptr, posAlHousing, logic_alHousing, "AlHousing",
-  //                   logicWorld, false, 0, true);
+  new G4PVPlacement(nullptr, posAlHousing, logic_alHousing, "AlHousing",
+                    logicWorld, false, 0, true);
   G4VisAttributes *visAlHousing = new G4VisAttributes(G4Colour(0.7, 0.7, 0.7));
   visAlHousing->SetVisibility(true);
   logic_alHousing->SetVisAttributes(visAlHousing);
@@ -274,13 +273,13 @@ G4VPhysicalVolume *MyDetectorConstruction::DefineVolumes() {
   logic_AlCover = new G4LogicalVolume(total_alCover, Al, "AlCover");
   G4ThreeVector posAlCover(0., 0.,
                            -(105 + 8 - length_GeCrystal - 0.06 - 8.7) / 2);
-  // new G4PVPlacement(nullptr, posAlCover, logic_AlCover, "AlCover",
-  // logicWorld,
-  //                   false, 0, true);
+  new G4PVPlacement(nullptr, posAlCover, logic_AlCover, "AlCover", logicWorld,
+                    false, 0, true);
   G4VisAttributes *visAlCover = new G4VisAttributes(G4Colour(0.7, 0.7, 0.7));
   visAlCover->SetVisibility(true);
   logic_AlCover->SetVisAttributes(visAlCover);
 
+  // for add scoring
   fScoringVolume = logic_GeCrystal;
 
   return physWorld;

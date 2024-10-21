@@ -76,14 +76,28 @@ G4VPhysicalVolume *MyDetectorConstruction::DefineVolumes() {
   // 2 cylinder in torus
   G4Tubs *cylinder_inTorus_GeCrystal = new G4Tubs(
       "CylinderInTorus", 0, radius_GeCrystal - radius_torus_GeCrystal,
-      radius_torus_GeCrystal / 2, startPhi, deltaPhi);
+      radius_torus_GeCrystal, startPhi, deltaPhi);
   G4double posTorusZ = (length_GeCrystal - radius_torus_GeCrystal) / 2;
   G4double posInnerCylinderZ = posTorusZ;
   G4UnionSolid *crystalGeTotal = new G4UnionSolid(
       "FinalShape", cylinder_GeCrystal, cylinder_inTorus_GeCrystal, nullptr,
       G4ThreeVector(0., 0., posInnerCylinderZ));
-  // 3 torus
-  // 4 hole with out Ge/B deadLayer
+  // 3 1 / 4torus
+  G4Torus *torus_GeCrystal =
+      new G4Torus("Torus", 0, radius_torus_GeCrystal, radius_GeCrystal - 8,
+                  startPhi, deltaPhi);
+  G4SubtractionSolid *total_torus = new G4SubtractionSolid(
+      "torus", torus_GeCrystal, cylinder_inTorus_GeCrystal, nullptr,
+      G4ThreeVector(0., 0., 0.));
+  G4Tubs *cylinder_underTorusSubtract =
+      new G4Tubs("cylinderUnderTorusSubtract", 0, radius_GeCrystal, 4 * mm,
+                 startPhi, deltaPhi);
+  G4SubtractionSolid *total_torusOnCylinderGeCrystal = new G4SubtractionSolid(
+      "torusGeCrystal", total_torus, cylinder_underTorusSubtract, nullptr,
+      G4ThreeVector(0., 0., -radius_torus_GeCrystal / 2));
+  G4ThreeVector position_torusOnTop(
+      0., 0., (length_GeCrystal - radius_torus_GeCrystal + 0.7) / 2);
+  // 4 hole Crystal
   // 4.1 top sphere
   G4double radius_hole_GeCrystal = 11.5 / 2 * mm;
   G4double depth_hole_GeCrystal = 64.9 * mm;
@@ -96,18 +110,22 @@ G4VPhysicalVolume *MyDetectorConstruction::DefineVolumes() {
       new G4Tubs("HoleCylinder", 0, radius_hole_GeCrystal,
                  (depth_hole_GeCrystal - 5 * mm) / 2, startPhi, deltaPhi);
   G4ThreeVector position_hole_sphere(
-      0., 0., ((depth_hole_GeCrystal - radius_holeSphere_GeCrystal) / 2));
+      0., 0., (depth_hole_GeCrystal - radius_holeSphere_GeCrystal) / 2);
   G4UnionSolid *total_hole_GeCrystal =
       new G4UnionSolid("TotalHoleGeCrystal", cylinder_hole_GeCrystal,
                        sphere_hole_GeCrystal, nullptr, position_hole_sphere);
-  G4SubtractionSolid *total_withHole_GeCrystal = new G4SubtractionSolid(
-      "GeWithHole", crystalGeTotal, total_hole_GeCrystal, nullptr,
-      G4ThreeVector(0., 0., -(length_GeCrystal - depth_hole_GeCrystal)));
-  logic_GeCrystal =
-      new G4LogicalVolume(total_withHole_GeCrystal, Ge, "logicGeCrystal");
-  new G4PVPlacement(nullptr, G4ThreeVector(0., 0., 0.), logic_GeCrystal,
-                    "GeCrystal", logicWorld, false, 0, true);
-  // 5 set color
+  G4ThreeVector posTopSphere(
+      0., 0., -(length_GeCrystal - depth_hole_GeCrystal - 3) / 2);
+  G4SubtractionSolid *total_withHole_GeCrystal =
+      new G4SubtractionSolid("GeWithHole", crystalGeTotal, total_hole_GeCrystal,
+                             nullptr, posTopSphere);
+  G4UnionSolid *total_GeCrystal = new G4UnionSolid(
+      "TotalGeCrystal", total_withHole_GeCrystal,
+      total_torusOnCylinderGeCrystal, nullptr, position_torusOnTop);
+  logic_GeCrystal = new G4LogicalVolume(total_GeCrystal, Ge, "logicGeCrystal");
+  // new G4PVPlacement(nullptr, G4ThreeVector(0., 0., 0.), logic_GeCrystal,
+  //                   "GeCrystal", logicWorld, false, 0, true);
+  //  5 set color
   G4VisAttributes *visGeCrystal = new G4VisAttributes(G4Colour(0.0, 0.0, 1.0));
   visGeCrystal->SetVisibility(true);
   logic_GeCrystal->SetVisAttributes(visGeCrystal);
@@ -122,25 +140,23 @@ G4VPhysicalVolume *MyDetectorConstruction::DefineVolumes() {
       "HoleSphere", radius_hole_GeCrystal - thickness_BdeadLayer,
       radius_hole_GeCrystal, startPhi, deltaPhi, startPhi, deltaPhi / 4);
   // 1.2 cylinder under sphere B deadLayer
-  G4Tubs *cylinder_hole_BDeadLayer =
-      new G4Tubs("HoleCylinder", radius_hole_GeCrystal - thickness_BdeadLayer,
-                 radius_hole_GeCrystal,
-                 (depth_hole_GeCrystal - radius_holeSphere_GeCrystal) / 2,
-                 startPhi, deltaPhi);
+  G4Tubs *cylinder_hole_BDeadLayer = new G4Tubs(
+      "HoleCylinder", radius_hole_GeCrystal - 3 * mm, radius_hole_GeCrystal,
+      (depth_hole_GeCrystal - radius_holeSphere_GeCrystal) / 2, startPhi,
+      deltaPhi);
   G4UnionSolid *total_BDeadLayer =
       new G4UnionSolid("TotalHoleGeCrystal", cylinder_hole_GeCrystal,
                        sphere_hole_GeCrystal, nullptr, position_hole_sphere);
-  G4ThreeVector posBDeadLayer(0., 0.,
-                              -(length_GeCrystal - depth_hole_GeCrystal));
+  G4ThreeVector posBDeadLayer(
+      0., 0., -(length_GeCrystal - depth_hole_GeCrystal - 3) / 2);
   logic_BDeadLayer =
       new G4LogicalVolume(total_BDeadLayer, Ge, "logicBDeadLayer");
   new G4PVPlacement(nullptr, posBDeadLayer, logic_BDeadLayer, "BDeadLayer",
                     logicWorld, false, 0, true);
-  // 1.3 set color
+  //   1.3 set color
   G4VisAttributes *visBdeadLayer = new G4VisAttributes(G4Colour(1.0, 0.0, 0.0));
   visBdeadLayer->SetVisibility(true);
   logic_BDeadLayer->SetVisAttributes(visBdeadLayer);
-
   // 2 Ge/Li deadLayer cover Ge Crystal
   // 2.1 cylinder under the torus
   G4double thickness_LiDeadLayer = 0.7 * mm;
@@ -151,8 +167,8 @@ G4VPhysicalVolume *MyDetectorConstruction::DefineVolumes() {
 
   logic_LiDeadLayer =
       new G4LogicalVolume(cylinder_LiDeadLayer, GeLi, "logicLiDeadLayer");
-  new G4PVPlacement(nullptr, G4ThreeVector(0., 0., 0.), logic_LiDeadLayer,
-                    "LiDeadLayer", logicWorld, false, 0, true);
+  // new G4PVPlacement(nullptr, G4ThreeVector(0., 0., 0.), logic_LiDeadLayer,
+  //                   "LiDeadLayer", logicWorld, false, 0, true);
   G4VisAttributes *visLiDeadLayer =
       new G4VisAttributes(G4Colour(0.0, 1.0, 0.0));
   visLiDeadLayer->SetVisibility(true);
@@ -168,10 +184,10 @@ G4VPhysicalVolume *MyDetectorConstruction::DefineVolumes() {
       "AlWindow", 0, radius_GeCrystal + space_crystal_housing + 0.8 * mm,
       thickness_alWindow / 2, startPhi, deltaPhi);
   G4ThreeVector posAlWindow(0., 0.,
-                            (length_GeCrystal + thickness_alWindow) / 2);
+                            (length_GeCrystal + thickness_alWindow + 8.7) / 2);
   logic_AlWindow = new G4LogicalVolume(cylinder_alWindow, Al, "logicAlWindow");
-  new G4PVPlacement(nullptr, posAlWindow, logic_AlWindow, "AlWindow",
-                    logicWorld, false, 0, true);
+  // new G4PVPlacement(nullptr, posAlWindow, logic_AlWindow, "AlWindow",
+  //                   logicWorld, false, 0, true);
   G4VisAttributes *visAlWindow = new G4VisAttributes(G4Colour(0.7, 0.7, 0.7));
   visAlWindow->SetVisibility(true);
   logic_AlWindow->SetVisAttributes(visAlWindow);
@@ -181,12 +197,14 @@ G4VPhysicalVolume *MyDetectorConstruction::DefineVolumes() {
       "MylarWindow", 0, radius_GeCrystal + space_crystal_housing + 0.8 * mm,
       thickness_mylarWindow / 2, startPhi, deltaPhi);
   G4ThreeVector posMylarWindow(0., 0.,
-                               (length_GeCrystal + thickness_alWindow) / 2 +
+                               (length_GeCrystal + thickness_alWindow + 8.7) /
+                                       2 +
                                    thickness_mylarWindow);
   logic_mylarWindow =
       new G4LogicalVolume(cylinder_mylarWindow, Mylar, "logicMylarWindow");
-  new G4PVPlacement(nullptr, posMylarWindow, logic_mylarWindow, "MylarWindow",
-                    logicWorld, false, 0, true);
+  // new G4PVPlacement(nullptr, posMylarWindow, logic_mylarWindow,
+  // "MylarWindow",
+  //                   logicWorld, false, 0, true);
   G4VisAttributes *visMylarWindow = new G4VisAttributes(G4Colour(0, 1, 1));
   visMylarWindow->SetVisibility(true);
   logic_mylarWindow->SetVisAttributes(visMylarWindow);
@@ -227,9 +245,9 @@ G4VPhysicalVolume *MyDetectorConstruction::DefineVolumes() {
   logic_alHousing =
       new G4LogicalVolume(total_alHousingWithSubtraction, Al, "AlHousing");
   G4ThreeVector posAlHousing(0., 0.,
-                             -(105 * mm - 3 * mm - length_GeCrystal) / 2);
-  new G4PVPlacement(nullptr, posAlHousing, logic_alHousing, "AlHousing",
-                    logicWorld, false, 0, true);
+                             -(105 * mm - 3 * mm - length_GeCrystal - 8.7) / 2);
+  // new G4PVPlacement(nullptr, posAlHousing, logic_alHousing, "AlHousing",
+  //                   logicWorld, false, 0, true);
   G4VisAttributes *visAlHousing = new G4VisAttributes(G4Colour(0.7, 0.7, 0.7));
   visAlHousing->SetVisibility(true);
   logic_alHousing->SetVisAttributes(visAlHousing);
@@ -254,9 +272,11 @@ G4VPhysicalVolume *MyDetectorConstruction::DefineVolumes() {
       new G4UnionSolid("AlCover", cylinder_alCover, cylinder_alCoverOnTop,
                        nullptr, posAlCoverOnTop);
   logic_AlCover = new G4LogicalVolume(total_alCover, Al, "AlCover");
-  G4ThreeVector posAlCover(0., 0., -(105 + 8 - length_GeCrystal - 0.06) / 2);
-  new G4PVPlacement(nullptr, posAlCover, logic_AlCover, "AlCover", logicWorld,
-                    false, 0, true);
+  G4ThreeVector posAlCover(0., 0.,
+                           -(105 + 8 - length_GeCrystal - 0.06 - 8.7) / 2);
+  // new G4PVPlacement(nullptr, posAlCover, logic_AlCover, "AlCover",
+  // logicWorld,
+  //                   false, 0, true);
   G4VisAttributes *visAlCover = new G4VisAttributes(G4Colour(0.7, 0.7, 0.7));
   visAlCover->SetVisibility(true);
   logic_AlCover->SetVisAttributes(visAlCover);

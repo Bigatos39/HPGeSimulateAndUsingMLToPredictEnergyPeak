@@ -4,7 +4,7 @@
 MyRunAction::MyRunAction() {
   auto analysisManager = G4AnalysisManager::Instance();
   analysisManager->CreateH1("H1", "Edep in absorber, Energy[MeV]", 2000, 0.,
-                            3 * MeV);
+                            2.8 * MeV);
 
   // Create ntuple
   analysisManager->CreateNtuple("HPGe", "Edep");

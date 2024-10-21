@@ -53,7 +53,6 @@ file(GLOB headers ${PROJECT_SOURCE_DIR}/*.hh)
 #
 set(GAMMA_SCRIPTS
   defaultMacro.mac
-  GPS.in
   simulation.mac
   Co60.mac
   )

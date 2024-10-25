@@ -6,10 +6,6 @@ This project focuses on the optimization of High Purity Germanium (HPGe) detecto
 
 HPGe detectors are widely used for precise gamma radiation detection due to their high resolution. This research explores an optimization method for HPGe detector configuration, utilizing the **Geant4 simulation program**. The goal is to enhance detection efficiency and improve the accuracy of measurements.
 
-## Benefits
-
-By using the Geant4 program for optimization, this project demonstrates significant improvements in the effectiveness and reliability of HPGe detectors in gamma radiation measurements.
-
 ## Contact Information
 
 For further details, contact:

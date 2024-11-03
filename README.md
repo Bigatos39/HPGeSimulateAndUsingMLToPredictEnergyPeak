@@ -17,7 +17,7 @@ For further details, contact:
 2. **Configure the simulation environment**: Update the configuration files according to your specific detector requirements.
 3. **Clone this repository**:
     ```bash
-    git clone git@github.com:Bigatos39/HPGeSimulate.git
+    git clone https://github.com/Bigatos39/HPGeSimulateAndUsingMLToPredictEnergyPeak.git
     cd HPGeSimulate
     ```
 4. **Run the simulation with the viewer**:

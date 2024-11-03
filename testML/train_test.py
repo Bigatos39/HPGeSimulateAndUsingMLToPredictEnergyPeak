@@ -63,7 +63,7 @@ from sklearn.model_selection import train_test_split
 # ------------------------ RANDOM FOREST -------------------------- //
 # ----------------------------------------------------------------- //
 class RandomForestModel:
-    def __init__(self, n_estimators=100, test_size=0.2, random_state=42):
+    def __init__(self, n_estimators=500, test_size=0.2, random_state=42):
         self.n_estimators = n_estimators
         self.test_size = test_size
         self.random_state = random_state

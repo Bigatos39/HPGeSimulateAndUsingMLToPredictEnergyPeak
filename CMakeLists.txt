@@ -55,15 +55,11 @@ set(GAMMA_SCRIPTS
   defaultMacro.mac
   simulation.mac
   Co60.mac
-<<<<<<< HEAD
   Am241.mac
   Pb210.mac
   Cs137.mac
   resolutionEnergyDistribution.cc
 )
-=======
-  )
->>>>>>> 89408436d91cb0e8370cefed9a0e2a0933a353ec
 
 foreach(_script ${GAMMA_SCRIPTS})
   configure_file(
@@ -78,4 +74,3 @@ endforeach()
 # example standalone
 #
 add_custom_target(MySimulation DEPENDS sim)
-

@@ -49,12 +49,9 @@ void MyDetectorConstruction::DefineMaterials() {
 
   // Print materials
   G4cout << *(G4Material::GetMaterialTable()) << G4endl;
-<<<<<<< HEAD
 
   // color transperence
   alpha = 0.1;
-=======
->>>>>>> 89408436d91cb0e8370cefed9a0e2a0933a353ec
 }
 
 G4VPhysicalVolume *MyDetectorConstruction::DefineVolumes() {
@@ -88,11 +85,8 @@ G4VPhysicalVolume *MyDetectorConstruction::DefineVolumes() {
   G4UnionSolid *crystalGeTotal = new G4UnionSolid(
       "FinalShape", cylinder_GeCrystal, cylinder_inTorus_GeCrystal, nullptr,
       G4ThreeVector(0., 0., posInnerCylinderZ));
-<<<<<<< HEAD
   // 3 torus (1/4)
-=======
   // 3 (1/4) torus
->>>>>>> 89408436d91cb0e8370cefed9a0e2a0933a353ec
   G4Torus *torus_GeCrystal =
       new G4Torus("Torus", 0, radius_torus_GeCrystal, radius_GeCrystal - 8,
                   startPhi, deltaPhi);
@@ -135,14 +129,8 @@ G4VPhysicalVolume *MyDetectorConstruction::DefineVolumes() {
   logic_GeCrystal = new G4LogicalVolume(total_GeCrystal, Ge, "logicGeCrystal");
   new G4PVPlacement(nullptr, G4ThreeVector(0., 0., 0.), logic_GeCrystal,
                     "GeCrystal", logicWorld, false, 0, true);
-<<<<<<< HEAD
-  // 5 set color
-  G4VisAttributes *visGeCrystal =
-      new G4VisAttributes(G4Colour(0.0, 0.0, 1.0, 5.0));
-=======
   //  5 set color
   G4VisAttributes *visGeCrystal = new G4VisAttributes(G4Colour(0.0, 0.0, 1.0));
->>>>>>> 89408436d91cb0e8370cefed9a0e2a0933a353ec
   visGeCrystal->SetVisibility(true);
   logic_GeCrystal->SetVisAttributes(visGeCrystal);
 
@@ -156,18 +144,12 @@ G4VPhysicalVolume *MyDetectorConstruction::DefineVolumes() {
       "HoleSphere", radius_hole_GeCrystal - thickness_BdeadLayer,
       radius_hole_GeCrystal, startPhi, deltaPhi, startPhi, deltaPhi / 4);
   // 1.2 cylinder under sphere B deadLayer
-<<<<<<< HEAD
   G4Tubs *cylinder_hole_BDeadLayer =
       new G4Tubs("HoleCylinder", radius_hole_GeCrystal - thickness_BdeadLayer,
                  radius_hole_GeCrystal,
                  (depth_hole_GeCrystal - radius_holeSphere_GeCrystal) / 2,
                  startPhi, deltaPhi);
-=======
-  G4Tubs *cylinder_hole_BDeadLayer = new G4Tubs(
-      "HoleCylinder", radius_hole_GeCrystal - 3 * mm, radius_hole_GeCrystal,
-      (depth_hole_GeCrystal - radius_holeSphere_GeCrystal) / 2, startPhi,
-      deltaPhi);
->>>>>>> 89408436d91cb0e8370cefed9a0e2a0933a353ec
+
   G4UnionSolid *total_BDeadLayer =
       new G4UnionSolid("TotalHoleGeCrystal", cylinder_hole_GeCrystal,
                        sphere_hole_GeCrystal, nullptr, position_hole_sphere);
@@ -177,13 +159,8 @@ G4VPhysicalVolume *MyDetectorConstruction::DefineVolumes() {
       new G4LogicalVolume(total_BDeadLayer, Ge, "logicBDeadLayer");
   new G4PVPlacement(nullptr, posBDeadLayer, logic_BDeadLayer, "BDeadLayer",
                     logicWorld, false, 0, true);
-<<<<<<< HEAD
-  G4VisAttributes *visBdeadLayer =
-      new G4VisAttributes(G4Colour(1.0, 0.0, 0.0, 5.0));
-=======
   //   1.3 set color
   G4VisAttributes *visBdeadLayer = new G4VisAttributes(G4Colour(1.0, 0.0, 0.0));
->>>>>>> 89408436d91cb0e8370cefed9a0e2a0933a353ec
   visBdeadLayer->SetVisibility(true);
   logic_BDeadLayer->SetVisAttributes(visBdeadLayer);
   // 2 Ge/Li deadLayer cover Ge Crystal
@@ -193,20 +170,13 @@ G4VPhysicalVolume *MyDetectorConstruction::DefineVolumes() {
       "LiDeadLayer", radius_GeCrystal, radius_GeCrystal + thickness_LiDeadLayer,
       (length_GeCrystal - 8 * mm) / 2, startPhi, deltaPhi);
   // 2.2 torus Li deadLayer
-<<<<<<< HEAD
-=======
 
->>>>>>> 89408436d91cb0e8370cefed9a0e2a0933a353ec
   logic_LiDeadLayer =
       new G4LogicalVolume(cylinder_LiDeadLayer, GeLi, "logicLiDeadLayer");
   new G4PVPlacement(nullptr, G4ThreeVector(0., 0., 0.), logic_LiDeadLayer,
                     "LiDeadLayer", logicWorld, false, 0, true);
   G4VisAttributes *visLiDeadLayer =
-<<<<<<< HEAD
       new G4VisAttributes(G4Colour(0.0, 1.0, 0.0, alpha));
-=======
-      new G4VisAttributes(G4Colour(0.0, 1.0, 0.0));
->>>>>>> 89408436d91cb0e8370cefed9a0e2a0933a353ec
   visLiDeadLayer->SetVisibility(true);
   logic_LiDeadLayer->SetVisAttributes(visLiDeadLayer);
 
@@ -224,12 +194,7 @@ G4VPhysicalVolume *MyDetectorConstruction::DefineVolumes() {
   logic_AlWindow = new G4LogicalVolume(cylinder_alWindow, Al, "logicAlWindow");
   new G4PVPlacement(nullptr, posAlWindow, logic_AlWindow, "AlWindow",
                     logicWorld, false, 0, true);
-<<<<<<< HEAD
-  G4VisAttributes *visAlWindow =
-      new G4VisAttributes(G4Colour(1.0, 1.0, 0.0, 5.0));
-=======
   G4VisAttributes *visAlWindow = new G4VisAttributes(G4Colour(0.7, 0.7, 0.7));
->>>>>>> 89408436d91cb0e8370cefed9a0e2a0933a353ec
   visAlWindow->SetVisibility(true);
   logic_AlWindow->SetVisAttributes(visAlWindow);
   // 2 Mylar Window 0.03mm
@@ -245,12 +210,7 @@ G4VPhysicalVolume *MyDetectorConstruction::DefineVolumes() {
       new G4LogicalVolume(cylinder_mylarWindow, Mylar, "logicMylarWindow");
   new G4PVPlacement(nullptr, posMylarWindow, logic_mylarWindow, "MylarWindow",
                     logicWorld, false, 0, true);
-<<<<<<< HEAD
-  G4VisAttributes *visMylarWindow =
-      new G4VisAttributes(G4Colour(0.0, 1.0, 1.0, 5.0));
-=======
   G4VisAttributes *visMylarWindow = new G4VisAttributes(G4Colour(0, 1, 1));
->>>>>>> 89408436d91cb0e8370cefed9a0e2a0933a353ec
   visMylarWindow->SetVisibility(true);
   logic_mylarWindow->SetVisAttributes(visMylarWindow);
 
@@ -293,12 +253,7 @@ G4VPhysicalVolume *MyDetectorConstruction::DefineVolumes() {
                              -(105 * mm - 3 * mm - length_GeCrystal - 8.7) / 2);
   new G4PVPlacement(nullptr, posAlHousing, logic_alHousing, "AlHousing",
                     logicWorld, false, 0, true);
-<<<<<<< HEAD
-  G4VisAttributes *visAlHousing =
-      new G4VisAttributes(G4Colour(1.0, 1.0, 0.0, alpha));
-=======
   G4VisAttributes *visAlHousing = new G4VisAttributes(G4Colour(0.7, 0.7, 0.7));
->>>>>>> 89408436d91cb0e8370cefed9a0e2a0933a353ec
   visAlHousing->SetVisibility(true);
   logic_alHousing->SetVisAttributes(visAlHousing);
 
@@ -326,12 +281,7 @@ G4VPhysicalVolume *MyDetectorConstruction::DefineVolumes() {
                            -(105 + 8 - length_GeCrystal - 0.06 - 8.7) / 2);
   new G4PVPlacement(nullptr, posAlCover, logic_AlCover, "AlCover", logicWorld,
                     false, 0, true);
-<<<<<<< HEAD
-  G4VisAttributes *visAlCover =
-      new G4VisAttributes(G4Colour(1.0, 1.0, 0.0, alpha));
-=======
   G4VisAttributes *visAlCover = new G4VisAttributes(G4Colour(0.7, 0.7, 0.7));
->>>>>>> 89408436d91cb0e8370cefed9a0e2a0933a353ec
   visAlCover->SetVisibility(true);
   logic_AlCover->SetVisAttributes(visAlCover);
 

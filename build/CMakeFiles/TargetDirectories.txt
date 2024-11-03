@@ -1,0 +1,4 @@
+/Users/nguyenhoangkhavi/Desktop/HPGeSimulation/testCode/build/CMakeFiles/sim.dir
+/Users/nguyenhoangkhavi/Desktop/HPGeSimulation/testCode/build/CMakeFiles/MySimulation.dir
+/Users/nguyenhoangkhavi/Desktop/HPGeSimulation/testCode/build/CMakeFiles/edit_cache.dir
+/Users/nguyenhoangkhavi/Desktop/HPGeSimulation/testCode/build/CMakeFiles/rebuild_cache.dir

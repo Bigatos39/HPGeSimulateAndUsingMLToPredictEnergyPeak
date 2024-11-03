@@ -1,7 +1,11 @@
 /run/initialize
 /vis/open OGL
+<<<<<<< HEAD
 /vis/viewer/set/rotationStyle freeRotation
 /vis/viewer/set/style surface 
+=======
+/vis/viewer/set/style cloud
+>>>>>>> 89408436d91cb0e8370cefed9a0e2a0933a353ec
 /vis/viewer/set/viewpointVector 1 1 1
 /vis/drawVolume
 /vis/viewer/set/autoRefresh true

@@ -1,5 +1,8 @@
+<<<<<<< HEAD
 #include <ctime>
 
+=======
+>>>>>>> 89408436d91cb0e8370cefed9a0e2a0933a353ec
 #include "G4UIExecutive.hh"
 #include "G4UImanager.hh"
 #include "G4VisExecutive.hh"
@@ -40,7 +43,10 @@ int main(int argc, char **argv) {
     UImanager->ApplyCommand(command + fileName);
   }
 
+<<<<<<< HEAD
   delete runManager;
 
+=======
+>>>>>>> 89408436d91cb0e8370cefed9a0e2a0933a353ec
   return 0;
 }

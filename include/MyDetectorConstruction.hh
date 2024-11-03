@@ -56,9 +56,12 @@ public:
   // Material
   G4Material *Air, *Al, *Ge, *Li, *Mylar, *Vacuum, *GeB, *GeLi;
 
+<<<<<<< HEAD
   // color
   G4double alpha;
 
+=======
+>>>>>>> 89408436d91cb0e8370cefed9a0e2a0933a353ec
 public:
   // Get methods
   G4LogicalVolume *GetScoringVolume() const { return fScoringVolume; }

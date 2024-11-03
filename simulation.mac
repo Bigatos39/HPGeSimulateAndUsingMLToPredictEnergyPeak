@@ -9,7 +9,14 @@
 /control/execute Co60.mac
 
 #
+<<<<<<< HEAD
 /run/printProgress 1000
 
 # Histories
 /run/beamOn 1000000
+=======
+/run/printProgress 1000000
+
+# Histories
+/run/beamOn 1000000000
+>>>>>>> 89408436d91cb0e8370cefed9a0e2a0933a353ec

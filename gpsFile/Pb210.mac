@@ -1,0 +1,10 @@
+/gps/source/intensity 1.0         
+/gps/ene/type Gauss               
+/gps/ene/mono 46.5 keV            
+/gps/ene/sigma 0.01 keV           
+/gps/particle gamma               
+/gps/pos/centre 0.0 0.0 4.93 cm   
+/gps/ang/type iso                 
+/gps/direction 0 0 -1             
+/gps/ang/minphi 0 deg
+/gps/ang/maxphi 30 deg

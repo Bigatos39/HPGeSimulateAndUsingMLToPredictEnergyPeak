@@ -1,0 +1,11 @@
+/control/verbose 1
+/tracking/verbose 0
+/run/verbose 1
+/event/verbose 0
+
+/run/initialize
+
+# Source
+/gps/particle gamma
+/gps/position 0 0 4.93 cm
+/gps/ang/type iso

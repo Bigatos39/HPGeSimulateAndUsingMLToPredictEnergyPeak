@@ -18,7 +18,7 @@ For further details, contact:
 3. **Clone this repository**:
     ```bash
     git clone https://github.com/Bigatos39/HPGeSimulateAndUsingMLToPredictEnergyPeak.git
-    cd HPGeSimulate
+    cd HPGeSimulateAndUsingMLToPredictEnergyPeak
     ```
 4. **Run the simulation with the viewer**:
     ```bash
